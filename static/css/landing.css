@@ -1,0 +1,209 @@
+/* ------------------------------------------------------------------ */
+/* Landing hero                                                        */
+/* ------------------------------------------------------------------ */
+
+.lp-hero {
+    padding: 4.5rem 2rem 5rem;
+    background: var(--paper-card);
+    text-align: center;
+}
+
+.lp-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Badge */
+.lp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.1rem;
+    border: 1.5px solid #a8d5b5;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #2d6a4f;
+    background: #f0faf4;
+}
+
+.lp-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2d6a4f;
+    flex-shrink: 0;
+}
+
+/* Title */
+.lp-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.lp-title-green {
+    color: var(--accent);
+}
+
+/* Subtitle */
+.lp-subtitle {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0;
+}
+
+/* Buttons */
+.lp-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.25rem;
+}
+
+.lp-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.lp-btn:hover { background: var(--accent); }
+
+/* Browser-style mock window */
+.lp-window {
+    width: 100%;
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-top: 0.75rem;
+}
+
+.lp-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 0.25rem 0.85rem;
+}
+
+.lp-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.lp-dot-red    { background: #ff5f57; }
+.lp-dot-yellow { background: #febc2e; }
+.lp-dot-green  { background: #28c840; }
+
+.lp-window-body {
+    background: var(--paper-card);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Stat cards */
+.lp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.lp-stat {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: left;
+}
+
+.lp-stat-label {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    font-weight: 400;
+}
+
+.lp-stat-value {
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.lp-stat-note {
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.lp-note-red   { color: #e53e3e; }
+.lp-note-green { color: #2d6a4f; }
+.lp-note-muted { color: var(--ink-muted); }
+
+/* Progress bars */
+.lp-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 0 0.25rem;
+}
+
+.lp-bar-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lp-bar-label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    text-align: right;
+}
+
+.lp-bar-track {
+    height: 8px;
+    background: var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.lp-bar {
+    height: 100%;
+    border-radius: 999px;
+}
+
+.lp-bar-orange { background: #c17f24; }
+.lp-bar-blue   { background: #4a90d9; }
+.lp-bar-purple { background: #7c6bbf; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .lp-stats { grid-template-columns: 1fr; }
+    .lp-window-body { padding: 1rem; }
+    .lp-title br { display: none; }
+    .lp-subtitle br { display: none; }
+}
