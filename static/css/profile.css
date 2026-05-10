@@ -1,0 +1,309 @@
+/* ------------------------------------------------------------------ */
+/* Profile page                                                        */
+/* ------------------------------------------------------------------ */
+
+.profile-page {
+    padding: 3rem 2rem 5rem;
+}
+
+.profile-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* User info card                                                      */
+/* ------------------------------------------------------------------ */
+
+.profile-header {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    color: var(--paper-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+}
+
+.profile-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.profile-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.profile-email {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+}
+
+.profile-since {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Summary stats row                                                   */
+/* ------------------------------------------------------------------ */
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+}
+
+.stat-value--sm {
+    font-size: 1.3rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Two-column grid                                                     */
+/* ------------------------------------------------------------------ */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared card                                                         */
+/* ------------------------------------------------------------------ */
+
+.profile-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.profile-card-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.profile-card-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Transaction table                                                   */
+/* ------------------------------------------------------------------ */
+
+.tx-table-wrap {
+    overflow-x: auto;
+}
+
+.tx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.tx-table th {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0 0.5rem 0.75rem 0;
+    text-align: left;
+    border-bottom: 1px solid var(--border-soft);
+    white-space: nowrap;
+}
+
+.tx-amount-col {
+    text-align: right !important;
+}
+
+.tx-table td {
+    padding: 0.75rem 0.5rem 0.75rem 0;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: middle;
+}
+
+.tx-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tx-table tbody tr:hover td {
+    background: var(--paper);
+}
+
+.tx-date {
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.tx-amount {
+    text-align: right;
+    font-weight: 500;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Category badges                                                     */
+/* ------------------------------------------------------------------ */
+
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-green {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+.badge-gold {
+    background: var(--accent-2-light);
+    color: var(--accent-2);
+}
+
+.badge-muted {
+    background: var(--paper-warm);
+    color: var(--ink-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Category breakdown                                                  */
+/* ------------------------------------------------------------------ */
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.category-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.category-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.category-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+}
+
+.category-amt {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.category-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.category-bar-row .mock-bar-track {
+    flex: 1;
+}
+
+.category-pct {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-page {
+        padding: 2rem 1rem 4rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .stat-value {
+        font-size: 1.6rem;
+    }
+}

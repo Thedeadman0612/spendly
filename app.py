@@ -19,7 +19,7 @@ def landing():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if session.get("user_id"):
-        return redirect(url_for("landing"))
+        return redirect(url_for("profile"))
     if request.method == "GET":
         return render_template("register.html")
 
@@ -61,7 +61,7 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if session.get("user_id"):
-        return redirect(url_for("landing"))
+        return redirect(url_for("profile"))
     if request.method == "GET":
         success = "Account created successfully! Please sign in." if request.args.get("registered") else None
         return render_template("login.html", success=success)
@@ -84,7 +84,7 @@ def login():
     session.clear()
     session["user_id"]   = user["id"]
     session["user_name"] = user["name"]
-    return redirect(url_for("landing"))
+    return redirect(url_for("profile"))
 
 
 # ------------------------------------------------------------------ #
@@ -109,7 +109,41 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    user = {
+        "name": "Rahul Ghadiya",
+        "email": "rahul@example.com",
+        "member_since": "January 2024",
+        "initials": "RG",
+    }
+
+    stats = {
+        "total_spent": "₹24,680",
+        "transaction_count": 34,
+        "top_category": "Food & Dining",
+    }
+
+    transactions = [
+        {"date": "10 May 2025", "description": "Swiggy Order",    "category": "Food & Dining", "badge_class": "badge-green", "amount": "₹340"},
+        {"date": "09 May 2025", "description": "Ola Cab",          "category": "Transport",     "badge_class": "badge-gold",  "amount": "₹180"},
+        {"date": "08 May 2025", "description": "Netflix",          "category": "Entertainment", "badge_class": "badge-muted", "amount": "₹499"},
+        {"date": "07 May 2025", "description": "Big Bazaar",       "category": "Groceries",     "badge_class": "badge-green", "amount": "₹1,240"},
+        {"date": "05 May 2025", "description": "Electricity Bill", "category": "Utilities",     "badge_class": "badge-gold",  "amount": "₹850"},
+    ]
+
+    categories = [
+        {"name": "Food & Dining", "amount": "₹8,420", "percent": 34},
+        {"name": "Groceries",     "amount": "₹5,100", "percent": 21},
+        {"name": "Utilities",     "amount": "₹4,000", "percent": 16},
+        {"name": "Transport",     "amount": "₹3,960", "percent": 16},
+        {"name": "Entertainment", "amount": "₹3,200", "percent": 13},
+    ]
+
+    return render_template("profile.html",
+                           user=user, stats=stats,
+                           transactions=transactions, categories=categories)
 
 
 @app.route("/expenses/add")
