@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.db import get_db, init_db, seed_db
@@ -112,34 +113,88 @@ def profile():
     if not session.get("user_id"):
         return redirect(url_for("login"))
 
-    user = {
-        "name": "Rahul Ghadiya",
-        "email": "rahul@example.com",
-        "member_since": "January 2024",
-        "initials": "RG",
-    }
+    user_id = session["user_id"]
+    conn = get_db()
+    try:
 
-    stats = {
-        "total_spent": "₹24,680",
-        "transaction_count": 34,
-        "top_category": "Food & Dining",
-    }
+        # --- user info ---
+        row = conn.execute(
+            "SELECT id, name, email, created_at FROM users WHERE id = ?",
+            (user_id,),
+        ).fetchone()
+        parts = row["name"].split()
+        initials = (parts[0][0] + parts[1][0]).upper() if len(parts) >= 2 else parts[0][0].upper()
+        user = {
+            "name":         row["name"],
+            "email":        row["email"],
+            "member_since": datetime.strptime(row["created_at"], "%Y-%m-%d %H:%M:%S").strftime("%B %Y"),
+            "initials":     initials,
+        }
 
-    transactions = [
-        {"date": "10 May 2025", "description": "Swiggy Order",    "category": "Food & Dining", "badge_class": "badge-green", "amount": "₹340"},
-        {"date": "09 May 2025", "description": "Ola Cab",          "category": "Transport",     "badge_class": "badge-gold",  "amount": "₹180"},
-        {"date": "08 May 2025", "description": "Netflix",          "category": "Entertainment", "badge_class": "badge-muted", "amount": "₹499"},
-        {"date": "07 May 2025", "description": "Big Bazaar",       "category": "Groceries",     "badge_class": "badge-green", "amount": "₹1,240"},
-        {"date": "05 May 2025", "description": "Electricity Bill", "category": "Utilities",     "badge_class": "badge-gold",  "amount": "₹850"},
-    ]
+        # --- stats ---
+        agg = conn.execute(
+            "SELECT SUM(amount) AS total, COUNT(*) AS cnt FROM expenses WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()
+        total_amount = agg["total"] or 0
+        top_row = conn.execute(
+            "SELECT category FROM expenses WHERE user_id = ?"
+            " GROUP BY category ORDER BY SUM(amount) DESC LIMIT 1",
+            (user_id,),
+        ).fetchone()
+        stats = {
+            "total_spent":       f"₹{total_amount:,.0f}",
+            "transaction_count": agg["cnt"],
+            "top_category":      top_row["category"] if top_row else "—",
+        }
 
-    categories = [
-        {"name": "Food & Dining", "amount": "₹8,420", "percent": 34},
-        {"name": "Groceries",     "amount": "₹5,100", "percent": 21},
-        {"name": "Utilities",     "amount": "₹4,000", "percent": 16},
-        {"name": "Transport",     "amount": "₹3,960", "percent": 16},
-        {"name": "Entertainment", "amount": "₹3,200", "percent": 13},
-    ]
+        # --- transactions ---
+        badge_map = {
+            "Food":          "badge-green",
+            "Groceries":     "badge-green",
+            "Transport":     "badge-gold",
+            "Utilities":     "badge-gold",
+            "Bills":         "badge-gold",
+            "Health":        "badge-blue",
+            "Entertainment": "badge-muted",
+            "Shopping":      "badge-muted",
+            "Other":         "badge-muted",
+        }
+        rows = conn.execute(
+            "SELECT date, description, category, amount"
+            " FROM expenses WHERE user_id = ?"
+            " ORDER BY date DESC, id DESC LIMIT 5",
+            (user_id,),
+        ).fetchall()
+        transactions = [
+            {
+                "date":        datetime.strptime(r["date"], "%Y-%m-%d").strftime("%-d %b %Y"),
+                "description": r["description"] or "",
+                "category":    r["category"],
+                "badge_class": badge_map.get(r["category"], "badge-muted"),
+                "amount":      f"₹{r['amount']:,.0f}",
+            }
+            for r in rows
+        ]
+
+        # --- categories ---
+        cat_rows = conn.execute(
+            "SELECT category, SUM(amount) AS cat_total"
+            " FROM expenses WHERE user_id = ?"
+            " GROUP BY category ORDER BY cat_total DESC",
+            (user_id,),
+        ).fetchall()
+        categories = [
+            {
+                "name":    r["category"],
+                "amount":  f"₹{r['cat_total']:,.0f}",
+                "percent": round(r["cat_total"] / total_amount * 100) if total_amount else 0,
+            }
+            for r in cat_rows
+        ]
+
+    finally:
+        conn.close()
 
     return render_template("profile.html",
                            user=user, stats=stats,
