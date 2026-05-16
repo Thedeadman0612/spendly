@@ -1,0 +1,84 @@
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+
+.filter-periods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.filter-btn {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--paper);
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filter-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.filter-btn--active {
+    background: var(--accent);
+    color: var(--paper-card);
+    border-color: var(--accent);
+}
+
+.filter-custom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-input {
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+}
+
+.filter-sep {
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+}
+
+.filter-apply-btn {
+    padding: 0.35rem 0.85rem;
+    background: var(--accent-2);
+    color: var(--paper-card);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: opacity 0.15s;
+}
+
+.filter-apply-btn:hover {
+    opacity: 0.88;
+}
+
+@media (max-width: 600px) {
+    .filter-bar { flex-direction: column; align-items: flex-start; }
+    .filter-custom { width: 100%; }
+}

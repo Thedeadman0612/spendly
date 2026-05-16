@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/date-filter.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -33,6 +34,24 @@
                 <p class="stat-label">Top Category</p>
                 <p class="stat-value stat-value--sm">{{ stats.top_category }}</p>
             </div>
+        </div>
+
+        {# Filter bar #}
+        <div class="filter-bar">
+            <div class="filter-periods">
+                {% for p in periods %}
+                <a href="{{ url_for('profile', from_date=p.start, to_date=p.end) }}"
+                   class="filter-btn{% if active_period == p.key %} filter-btn--active{% endif %}">
+                    {{ p.label }}
+                </a>
+                {% endfor %}
+            </div>
+            <form method="GET" action="{{ url_for('profile') }}" class="filter-custom">
+                <input type="date" name="from_date" value="{{ from_date }}" class="filter-input">
+                <span class="filter-sep">to</span>
+                <input type="date" name="to_date" value="{{ to_date }}" class="filter-input">
+                <button type="submit" class="filter-apply-btn">Apply</button>
+            </form>
         </div>
 
         {# 3 & 4. Two-column grid #}
